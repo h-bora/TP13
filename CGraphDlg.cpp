@@ -7,6 +7,7 @@
 #include "afxdialogex.h"
 #include <algorithm>
 
+// 동적 클래스 선언
 IMPLEMENT_DYNAMIC(CGraphDlg, CDialogEx)
 
 CGraphDlg::CGraphDlg(CWnd* pParent /*=nullptr*/)
@@ -22,6 +23,7 @@ void CGraphDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 }
+
 
 BEGIN_MESSAGE_MAP(CGraphDlg, CDialogEx)
 	ON_WM_PAINT()

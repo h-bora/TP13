@@ -1,5 +1,4 @@
-﻿// CImageProcessDlg.h
-#pragma once
+﻿#pragma once
 
 #include "afxdialogex.h"
 
@@ -20,13 +19,27 @@ protected:
     DECLARE_MESSAGE_MAP()
 
 public:
-    afx_msg void OnBnClickedBtnLoadImage();
+    afx_msg void OnBnClickedBtnLoad();
     afx_msg void OnBnClickedBtnApply();
     afx_msg void OnBnClickedBtnSave();
     afx_msg void OnBnClickedBtnReset();
     afx_msg void OnBnClickedBtnBack();
+    afx_msg void OnBnClickedBtnExit();
+    afx_msg void OnStnClickedPicResult();
 
 private:
-    CString inputFilePath;
-    CString outputFilePath;
+    CString m_strInputFile;
+    CString m_strOutputFile;
+
+    CStatic m_ctrlOriginalImage;
+    CStatic m_ctrlResultImage;
+
+    CButton m_checkInvert;
+    CButton m_checkBinarize;
+    CButton m_checkBrightness;
+    CButton m_checkSharpen;
+    virtual BOOL OnInitDialog();
+
+   // CStatic m_staticFilterText;
+    CStatic m_staticFilterInfo;
 };

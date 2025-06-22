@@ -1,9 +1,10 @@
+#include "pch.h"
 #include "RLcircuit.h"
 #include <cmath>
 
-RLcircuit::RLcircuit() {
-    dt = 0.01;     // 시간 간격 10ms
-    steps = 100;   // 1초까지 시뮬레이션
+RLcircuit::RLcircuit()
+    : R(0), L(0), Vin(0), dt(0.01), steps(100)  // ← 초기화 리스트로 수정
+{
 }
 
 void RLcircuit::simulate(double r, double l, double vin) {

@@ -1,6 +1,17 @@
+#pragma once
+#define NOMINMAX
+#include <afxwin.h>
 #include "pch.h"
 #include "imageYUEE.h"
 #include <fstream>
+#include <vector>
+#include <algorithm> 
+#include <cmath>
+
+#undef min
+#undef max
+
+using namespace std;
 
 imageYUEE::imageYUEE(const CString& filename) {
     loadPGM(filename);
@@ -66,33 +77,39 @@ void imageYUEE::invert() {
 void imageYUEE::brighten() {
     for (auto& row : pixels)
         for (auto& px : row)
-            px = min(255, px + 50);
+            px = std::min(255, px + 50);
 }
 
 void imageYUEE::sharpen() {
-    // 단순한 sharpening mask 적용 예시
-    std::vector<std::vector<unsigned char>> copy = pixels;
+    std::vector<std::vector<unsigned char> > copiedPixels = pixels;
+
     for (int y = 1; y < height - 1; ++y) {
         for (int x = 1; x < width - 1; ++x) {
-            int val = 5 * copy[y][x]
-                - copy[y - 1][x] - copy[y + 1][x]
-                    - copy[y][x - 1] - copy[y][x + 1];
-                    pixels[y][x] = static_cast<unsigned char>(std::clamp(val, 0, 255));
+            int val = 5 * copiedPixels[y][x]
+                - copiedPixels[y - 1][x]
+                - copiedPixels[y + 1][x]
+                - copiedPixels[y][x - 1]
+                - copiedPixels[y][x + 1];
+
+            int clipped = std::max(0, std::min(255, val)); // 범위 클리핑
+            pixels[y][x] = static_cast<unsigned char>(clipped);
         }
     }
 }
 
-void imageYUEE::drawImage(CStatic* control, CDC* pDC) {
+
+
+void imageYUEE::drawImage(HWND hwnd) {
+    CClientDC dc(CWnd::FromHandle(hwnd));
     CRect rect;
-    control->GetClientRect(&rect);
+    ::GetClientRect(hwnd, &rect);
     CBitmap bmp;
-    bmp.CreateCompatibleBitmap(pDC, rect.Width(), rect.Height());
+    bmp.CreateCompatibleBitmap(&dc, rect.Width(), rect.Height());
 
     CDC memDC;
-    memDC.CreateCompatibleDC(pDC);
+    memDC.CreateCompatibleDC(&dc);
     CBitmap* pOldBmp = memDC.SelectObject(&bmp);
 
-    // 흰 배경 초기화
     memDC.FillSolidRect(&rect, RGB(255, 255, 255));
 
     for (int y = 0; y < height && y < rect.Height(); ++y) {
@@ -102,6 +119,6 @@ void imageYUEE::drawImage(CStatic* control, CDC* pDC) {
         }
     }
 
-    pDC->BitBlt(0, 0, rect.Width(), rect.Height(), &memDC, 0, 0, SRCCOPY);
+    dc.BitBlt(0, 0, rect.Width(), rect.Height(), &memDC, 0, 0, SRCCOPY);
     memDC.SelectObject(pOldBmp);
 }

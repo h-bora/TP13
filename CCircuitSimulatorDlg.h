@@ -25,4 +25,15 @@ public:
 	afx_msg void OnEnChangeEdit1();
 	afx_msg void OnEnChangeEdit4();
 	afx_msg void OnStnClickedStaticDesc();
+	afx_msg void OnBnClickedBtnRlRun();
+	afx_msg void OnBnClickedBtnRcRun();
+	afx_msg void OnEnChangeEditRlR();
+	afx_msg void OnEnChangeEditRcR();
+	afx_msg void OnEnChangeEditRcC();
+	afx_msg void OnEnChangeEdit();
+	afx_msg void OnEnChangeEditRlL();
+	afx_msg void OnEnChangeEditRlV();
+	afx_msg void OnEnChangeEditRcV();
+	afx_msg void OnBnClickedBtnRcGraghRl();
+	afx_msg void OnBnClickedBtnGraghRl();
 };

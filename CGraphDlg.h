@@ -1,9 +1,8 @@
-﻿// CGraphDlg.h
-#pragma once
+﻿#pragma once
+
 #include "afxdialogex.h"
 #include <vector>
 
-// CGraphDlg
 class CGraphDlg : public CDialogEx
 {
     DECLARE_DYNAMIC(CGraphDlg)

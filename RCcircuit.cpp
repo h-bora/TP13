@@ -1,10 +1,11 @@
 // RCcircuit.cpp
+#include "pch.h"
 #include "RCcircuit.h"
 #include <cmath>
 
-RCcircuit::RCcircuit() {
-    dt = 0.01;     // 시간 간격 10ms
-    steps = 100;   // 1초 시뮬레이션
+RCcircuit::RCcircuit()
+    : R(0), C(0), Vin(0), dt(0.01), steps(100)
+{
 }
 
 void RCcircuit::simulate(double r, double c, double vin) {
