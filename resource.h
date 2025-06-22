@@ -30,11 +30,18 @@
 #define IDC_CHECK_SHARPEN       1012
 
 #define IDC_STATIC_ORIGINAL     1013
-#define IDC_STATIC_RESULT       1014
+#define IDC_STATIC_RESULT		1014
 #define IDC_STATIC_FILTERINFO   1015
 #define IDC_GROUP_RESULT		1016
+#define IDC_PIC_ORIGINAL		1017
+#define IDC_BTN_LOADIMAGE		1018
 #define IDC_STATIC_DESC         1060  
-#define IDC_PIC_RESULT          1061  
+#define IDC_PIC_RESULT          1061 
+#define IDC_STATIC_TITLE        1064
+#define IDC_STATIC_TITLE		1065
+#define IDC_STATIC_RL_IMG       1066
+#define IDC_STATIC_RC_IMG       1067
+
 
 // 회로 시뮬레이터 (CCircuitSimulatorDlg)
 #define IDD_CIRCUIT_SIMULATOR   133
@@ -49,6 +56,7 @@
 #define IDC_EDIT_RL_L           1031
 #define IDC_EDIT_RL_V           1032
 #define IDC_BTN_RL_RUN          1033
+
 
 #define IDC_EDIT4               1062  
 #define IDC_EDIT1               1063 
