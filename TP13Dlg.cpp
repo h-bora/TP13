@@ -156,4 +156,10 @@ void CTP13Dlg::OnPaint()
 void CTP13Dlg::OnBnClickedBtnStart()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CSelectModeDlg selectDlg;
+	selectDlg.DoModal();
+
+	// 이후 종료
+	EndDialog(IDOK);
+
 }

@@ -42,21 +42,24 @@ BEGIN_MESSAGE_MAP(CSelectModeDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BTN_IMAGEPROCESS, &CSelectModeDlg::OnBnClickedBtnImageprocess)
 	ON_BN_CLICKED(IDC_BTN_GRAPH_RC, &CSelectModeDlg::OnBnClickedBtnGraphRC)
 	ON_BN_CLICKED(IDC_BTN_GRAPH_RL, &CSelectModeDlg::OnBnClickedBtnGraphRL)
+	ON_BN_CLICKED(IDC_BTN_Circuit, &CSelectModeDlg::OnBnClickedBtnCircuit)
+	ON_BN_CLICKED(IDC_BTN_Image, &CSelectModeDlg::OnBnClickedBtnImage)
 END_MESSAGE_MAP()
 
 // 이미지 처리 버튼
 void CSelectModeDlg::OnBnClickedBtnImageprocess()
 {
-	CImageProcessDlg dlg;
-	dlg.DoModal();
+	CImageProcessDlg dlg; 
+	dlg.DoModal();       
+	EndDialog(IDCANCEL);
 }
 
 // RC 회로 시뮬레이션 및 그래프 출력
 void CSelectModeDlg::OnBnClickedBtnGraphRC()
 {
-	CCircuitSimulatorDlg simdlg;
-	simdlg.SetMode(false); // RC
-	simdlg.DoModal();
+	//CCircuitSimulatorDlg simdlg;
+	//simdlg.SetMode(false); // RC
+	//simdlg.DoModal();
 }
 
 // RL 회로 시뮬레이션 및 그래프 출력
@@ -70,14 +73,14 @@ void CSelectModeDlg::OnBnClickedBtnGraphRL()
 
 void CSelectModeDlg::OnBnClickedBtnImage()
 {
-	// 이미지 처리 버튼 클릭 시 동작
-	m_isCircuitMode = false;
-	EndDialog(IDOK);
+	CImageProcessDlg dlg;
+	dlg.DoModal();
+	EndDialog(IDCANCEL);
 }
 
 void CSelectModeDlg::OnBnClickedBtnCircuit()
 {
-	// 회로 시뮬레이터 버튼 클릭 시 동작
-	m_isCircuitMode = true;
-	EndDialog(IDOK);
+	CCircuitSimulatorDlg dlg;
+	dlg.DoModal();
+	EndDialog(IDCANCEL);
 }

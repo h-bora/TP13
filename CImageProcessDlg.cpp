@@ -19,13 +19,13 @@ CImageProcessDlg::~CImageProcessDlg()
 void CImageProcessDlg::DoDataExchange(CDataExchange* pDX)
 {
     CDialogEx::DoDataExchange(pDX);
-    DDX_Control(pDX, IDC_STATIC_ORIGINAL, m_ctrlOriginalImage);
-    DDX_Control(pDX, IDC_STATIC_RESULT, m_ctrlResultImage);
-    DDX_Control(pDX, IDC_CHECK_INVERT, m_checkInvert);
-    DDX_Control(pDX, IDC_CHECK_BINARIZE, m_checkBinarize);
-    DDX_Control(pDX, IDC_CHECK_BRIGHTNESS, m_checkBrightness);
-    DDX_Control(pDX, IDC_CHECK_SHARPEN, m_checkSharpen);
-    DDX_Control(pDX, IDC_STATIC_FILTERINFO, m_staticFilterInfo);
+    //DDX_Control(pDX, IDC_STATIC_ORIGINAL, m_ctrlOriginalImage);
+    DDX_Control(pDX, IDC_PIC_ORIGINAL, m_ctrlOriginalImage);  
+    DDX_Control(pDX, IDC_STATIC_RESULT, m_ctrlResultImage);     
+    DDX_Control(pDX, IDC_CHECK_INVERT, m_checkInvert);          
+    DDX_Control(pDX, IDC_CHECK_BRIGHTNESS, m_checkBrightness);  
+    DDX_Control(pDX, IDC_CHECK_SHARPEN, m_checkSharpen);        
+    DDX_Control(pDX, IDC_STATIC_FILTERINFO, m_staticFilterInfo); 
 }
 
 BEGIN_MESSAGE_MAP(CImageProcessDlg, CDialogEx)

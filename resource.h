@@ -11,8 +11,7 @@
 #define IDR_MAINFRAME                   128
 #define IDD_IMAGE_PROCESS               129
 #define IDD_CIRCUIT_SIMULATOR           133
-#define IDD_START_DIALOG				150
-#define IDD_TP13_DIALOG					151
+#define IDC_BTN_IMAGE					134
 #define IDC_BTN_IMAGEPROCESS            1001
 #define IDC_BTN_BACK                    1003
 #define IDC_BTN_EXIT                    1004

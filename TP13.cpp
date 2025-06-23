@@ -7,6 +7,7 @@
 #include "TP13.h"
 #include "CSelectModeDlg.h"
 #include "CStartDlg.h"
+#include "TP13Dlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -79,6 +80,8 @@ BOOL CTP13App::InitInstance()
 	if (nResponse == IDOK)
 	{
 		// TODO: OK 버튼 눌렀을 때 처리
+		CSelectModeDlg selectDlg;
+		selectDlg.DoModal();
 	}
 	else if (nResponse == IDCANCEL)
 	{
