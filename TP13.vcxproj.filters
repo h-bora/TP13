@@ -57,9 +57,6 @@
     <ClInclude Include="CStartDlg.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="CResultImageDlg.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TP13.cpp">
@@ -93,9 +90,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="CStartDlg.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="CResultImageDlg.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
