@@ -11,8 +11,8 @@
 #define IDR_MAINFRAME                   128
 #define IDD_IMAGE_PROCESS               129
 #define IDD_CIRCUIT_SIMULATOR           133
-
-// ===== 이미지 처리 관련 =====
+#define IDD_START_DIALOG				150
+#define IDD_TP13_DIALOG					151
 #define IDC_BTN_IMAGEPROCESS            1001
 #define IDC_BTN_BACK                    1003
 #define IDC_BTN_EXIT                    1004
@@ -30,33 +30,23 @@
 #define IDC_GROUP_RESULT                1016
 #define IDC_PIC_ORIGINAL                1017
 #define IDC_BTN_LOADIMAGE               1018
-
-// ===== 회로 시뮬레이터 선택창 =====
-#define IDC_GROUP_SELECT                1019     // 회로 선택 GroupBox
-#define IDC_BTN_RL                      1020     // RL 회로 선택 버튼
-#define IDC_BTN_RC                      1021     // RC 회로 선택 버튼
-
-// ===== RL 회로 관련 =====
-#define IDC_GROUP_RL                    1022     // RL 회로 GroupBox
+#define IDC_GROUP_SELECT                1019
+#define IDC_BTN_RL                      1020
+#define IDC_BTN_RC                      1021
+#define IDC_GROUP_RL                    1022
+#define IDC_GROUP_RC                    1023
 #define IDC_EDIT_RL_R                   1030
 #define IDC_EDIT_RL_L                   1031
 #define IDC_EDIT_RL_V                   1032
 #define IDC_BTN_RL_RUN                  1033
 #define IDC_BTN_GRAPH_RL                1034
-
-// ===== RC 회로 관련 =====
-#define IDC_GROUP_RC                    1023     // RC 회로 GroupBox
 #define IDC_EDIT_RC_R                   1040
 #define IDC_EDIT_RC_C                   1041
 #define IDC_EDIT_RC_V                   1042
 #define IDC_BTN_RC_RUN                  1043
 #define IDC_BTN_GRAPH_RC                1044
-
-// ===== 그래프 관련 =====
 #define IDC_STATIC_GRAPH_TITLE          1050
 #define IDC_PIC_GRAPH_AREA              1051
-
-// ===== 기타 =====
 #define IDC_STATIC_DESC                 1060
 #define IDC_PIC_RESULT                  1061
 #define IDC_EDIT4                       1062
@@ -64,13 +54,18 @@
 #define IDC_STATIC_TITLE                1064
 #define IDC_STATIC_RL_IMG               1065
 #define IDC_STATIC_RC_IMG               1066
+#define IDC_BTN_Image                   1067
+#define IDC_BTN_Circuit                 1068
+#define IDC_STATIC_Main                 1070
+#define IDC_BTN_START                   1071
 
-// ===== 자동 생성 영역 =====
+// Next default values for new objects
+// 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        101
+#define _APS_NEXT_RESOURCE_VALUE        102
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1067
+#define _APS_NEXT_CONTROL_VALUE         1072
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

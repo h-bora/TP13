@@ -69,6 +69,7 @@ BEGIN_MESSAGE_MAP(CTP13Dlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BTN_START, &CTP13Dlg::OnBnClickedBtnStart)
 END_MESSAGE_MAP()
 
 
@@ -149,4 +150,10 @@ void CTP13Dlg::OnPaint()
 
 	// 여기에 필요한 그림 그리기 작업을 넣을 수 있음
 	// 지금은 기본 그림 동작만 처리
+}
+
+
+void CTP13Dlg::OnBnClickedBtnStart()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }

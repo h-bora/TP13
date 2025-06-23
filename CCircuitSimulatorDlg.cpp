@@ -205,25 +205,33 @@ void CCircuitSimulatorDlg::OnBnClickedGroupSelect()
 void CCircuitSimulatorDlg::OnBnClickedGroupRl()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	GetDlgItem(IDC_GROUP_SELECT)->ShowWindow(SW_HIDE);
+	GetDlgItem(IDC_GROUP_RL)->ShowWindow(SW_SHOW);
+	GetDlgItem(IDC_GROUP_RC)->ShowWindow(SW_HIDE);
 }
 
 
 void CCircuitSimulatorDlg::OnBnClickedGroupRc()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	GetDlgItem(IDC_GROUP_SELECT)->ShowWindow(SW_HIDE);
+	GetDlgItem(IDC_GROUP_RL)->ShowWindow(SW_HIDE);
+	GetDlgItem(IDC_GROUP_RC)->ShowWindow(SW_SHOW);
 }
 
 BOOL CCircuitSimulatorDlg::OnInitDialog()
 {
-	CDialogEx::OnInitDialog();
+	// 기본 상태: 회로 선택 화면만 보여줌
+	GetDlgItem(IDC_GROUP_SELECT)->ShowWindow(SW_SHOW);
+	GetDlgItem(IDC_GROUP_RL)->ShowWindow(SW_HIDE);
+	GetDlgItem(IDC_GROUP_RC)->ShowWindow(SW_HIDE);
 
-	// 회로 모드에 따라 초기화할 동작 정의 (옵션)
 	if (m_modeSet) {
 		if (m_isRLMode) {
-			SetWindowTextW(_T("RL 회로 시뮬레이터"));
+			OnBnClickedBtnRl(); // 자동 전환
 		}
 		else {
-			SetWindowTextW(_T("RC 회로 시뮬레이터"));
+			OnBnClickedBtnRc();
 		}
 	}
 
