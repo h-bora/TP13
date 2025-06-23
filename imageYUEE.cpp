@@ -16,6 +16,11 @@ using namespace std;
 imageYUEE::imageYUEE(const CString& filename) {
     loadPGM(filename);
 }
+imageYUEE::imageYUEE(const imageYUEE& other) {
+    width = other.width;
+    height = other.height;
+    pixels = other.pixels;    // 복사 생성자  
+}
 
 void imageYUEE::imageProc(int mode) {
     switch (mode) {
@@ -27,8 +32,16 @@ void imageYUEE::imageProc(int mode) {
     }
 }
 
-void imageYUEE::imageWrite(const CString& filename) {
-    savePGM(filename);
+bool imageYUEE::imageWrite(const CString& filename)
+{
+    std::ofstream file(CT2A(filename), std::ios::binary);
+    if (!file) return false;
+
+    file << "P5\n" << width << " " << height << "\n255\n";
+    for (int y = 0; y < height; ++y)
+        file.write((char*)pixels[y].data(), width);
+
+    return true;
 }
 
 bool imageYUEE::loadPGM(const CString& filename) {

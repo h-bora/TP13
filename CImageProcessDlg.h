@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "afxdialogex.h"
+#include "imageYUEE.h"
 
 class CImageProcessDlg : public CDialogEx
 {
@@ -30,6 +31,9 @@ public:
 private:
     CString m_strInputFile;
     CString m_strOutputFile;
+
+    imageYUEE* m_imgOriginal = nullptr;    // 원본 이미지 포인터
+	imageYUEE* m_imgProcessed = nullptr;   // 처리 이미지 포인터
 
     CStatic m_ctrlOriginalImage;
     CStatic m_ctrlResultImage;

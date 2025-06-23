@@ -6,12 +6,13 @@
 #define IDD_ABOUTBOX                    100
 #define IDS_ABOUTBOX                    101
 #define IDD_TP13_DIALOG                 102
+#define IDD_RESULT_IMAGE                103
 #define IDD_GRAPH_DIALOG                104
 #define IDD_SELECT_MODE                 120
 #define IDR_MAINFRAME                   128
 #define IDD_IMAGE_PROCESS               129
 #define IDD_CIRCUIT_SIMULATOR           133
-#define IDC_BTN_IMAGE					134
+#define IDC_BTN_IMAGE                   134
 #define IDC_BTN_IMAGEPROCESS            1001
 #define IDC_BTN_BACK                    1003
 #define IDC_BTN_EXIT                    1004
@@ -57,14 +58,18 @@
 #define IDC_BTN_Circuit                 1068
 #define IDC_STATIC_Main                 1070
 #define IDC_BTN_START                   1071
+#define IDC_STATIC_ORIGINAL_VIEW        1072
+#define IDC_STATIC_PROCESSED_VIEW       1073
+#define IDC_BTN_CLOSE                   1074
+#define IDC_BUTTON3                     1076
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        102
+#define _APS_NEXT_RESOURCE_VALUE        106
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1072
+#define _APS_NEXT_CONTROL_VALUE         1078
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

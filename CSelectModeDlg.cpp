@@ -49,9 +49,8 @@ END_MESSAGE_MAP()
 // 이미지 처리 버튼
 void CSelectModeDlg::OnBnClickedBtnImageprocess()
 {
-	CImageProcessDlg dlg; 
-	dlg.DoModal();       
-	EndDialog(IDCANCEL);
+	CImageProcessDlg dlg;
+	dlg.DoModal();
 }
 
 // RC 회로 시뮬레이션 및 그래프 출력

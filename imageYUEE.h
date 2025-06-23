@@ -12,8 +12,9 @@ private:
 
 public:
     imageYUEE(const CString& filename);
+	imageYUEE(const imageYUEE& other);     //  복사 생성자
     void imageProc(int mode); // 0: 이진화, 1: 반전, 2: 밝기조절, 3: 샤프닝
-    void imageWrite(const CString& filename);
+    bool imageWrite(const CString& filename);
     void drawImage(HWND hwnd);
 
 private:

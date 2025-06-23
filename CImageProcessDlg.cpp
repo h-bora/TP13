@@ -22,7 +22,8 @@ void CImageProcessDlg::DoDataExchange(CDataExchange* pDX)
     //DDX_Control(pDX, IDC_STATIC_ORIGINAL, m_ctrlOriginalImage);
     DDX_Control(pDX, IDC_PIC_ORIGINAL, m_ctrlOriginalImage);  
     DDX_Control(pDX, IDC_STATIC_RESULT, m_ctrlResultImage);     
-    DDX_Control(pDX, IDC_CHECK_INVERT, m_checkInvert);          
+    DDX_Control(pDX, IDC_CHECK_INVERT, m_checkInvert);
+    DDX_Control(pDX, IDC_CHECK_BINARIZE, m_checkBinarize);
     DDX_Control(pDX, IDC_CHECK_BRIGHTNESS, m_checkBrightness);  
     DDX_Control(pDX, IDC_CHECK_SHARPEN, m_checkSharpen);        
     DDX_Control(pDX, IDC_STATIC_FILTERINFO, m_staticFilterInfo); 
@@ -51,19 +52,27 @@ void CImageProcessDlg::OnBnClickedBtnLoad()
     if (dlg.DoModal() == IDOK)
     {
         m_strInputFile = dlg.GetPathName();
-        imageYUEE img(m_strInputFile);
-        img.drawImage(m_ctrlOriginalImage.GetSafeHwnd());
+
+        if (m_imgOriginal) delete m_imgOriginal;
+        if (m_imgProcessed) delete m_imgProcessed;
+
+        m_imgOriginal = new imageYUEE(m_strInputFile);
+        m_imgProcessed = new imageYUEE(*m_imgOriginal);  // 복사본 
+
+        m_imgOriginal->drawImage(m_ctrlOriginalImage.GetSafeHwnd());
+        m_imgProcessed->drawImage(m_ctrlResultImage.GetSafeHwnd());
+
+        m_staticFilterInfo.SetWindowText(_T("적용 필터: 없음"));
     }
 }
 
 void CImageProcessDlg::OnBnClickedBtnApply()
 {
-    if (m_strInputFile.IsEmpty()) {
-        AfxMessageBox(_T("먼저 이미지를 불러와 주세요."));
+    if (!m_imgProcessed) {
+        AfxMessageBox(_T("이미지를 불러온 뒤 필터를 적용해주세요."));
         return;
     }
 
-    imageYUEE img(m_strInputFile);
     int mode = -1;
 
     if (m_checkInvert.GetCheck()) mode = 1;
@@ -76,8 +85,8 @@ void CImageProcessDlg::OnBnClickedBtnApply()
         return;
     }
 
-    img.imageProc(mode);
-    img.drawImage(m_ctrlResultImage.GetSafeHwnd());
+    m_imgProcessed->imageProc(mode);
+    m_imgProcessed->drawImage(m_ctrlResultImage.GetSafeHwnd());
 
     CString filterName;
     switch (mode) {
@@ -92,16 +101,26 @@ void CImageProcessDlg::OnBnClickedBtnApply()
 
 void CImageProcessDlg::OnBnClickedBtnSave()
 {
-    CFileDialog dlg(FALSE);
+    if (!m_imgProcessed) {
+        AfxMessageBox(_T("저장할 이미지가 없습니다. 먼저 필터를 적용해주세요."));
+        return;
+    }
+
+    CFileDialog dlg(FALSE, _T("pgm"), _T("output.pgm"),
+        OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,
+        _T("PGM Files (*.pgm)|*.pgm||"));
+
     if (dlg.DoModal() == IDOK)
     {
         CString outputFile = dlg.GetPathName();
-        imageYUEE img(m_strInputFile);
-        img.imageProc(1); // 예시로 반전 처리 후 저장
-        img.imageWrite(outputFile);
-        AfxMessageBox(_T("이미지가 저장되었습니다."));
-    }
-}
+        if (m_imgProcessed->imageWrite(outputFile)) {
+            AfxMessageBox(_T("이미지가 저장되었습니다."));
+        }
+        else {
+            AfxMessageBox(_T("이미지 저장에 실패했습니다."));
+        }
+	}
+}   
 
 void CImageProcessDlg::OnBnClickedBtnReset()
 {
