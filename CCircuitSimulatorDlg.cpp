@@ -13,14 +13,7 @@
 
 IMPLEMENT_DYNAMIC(CCircuitSimulatorDlg, CDialogEx)
 
-CCircuitSimulatorDlg::CCircuitSimulatorDlg(CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD_CIRCUIT_SIMULATOR, pParent)
-{
-
-}
-
-CCircuitSimulatorDlg::~CCircuitSimulatorDlg()
-{
+CCircuitSimulatorDlg::~CCircuitSimulatorDlg(){
 }
 
 void CCircuitSimulatorDlg::DoDataExchange(CDataExchange* pDX)
@@ -33,8 +26,6 @@ BEGIN_MESSAGE_MAP(CCircuitSimulatorDlg, CDialogEx)
 	//ON_EN_CHANGE(IDC_EDIT1, &CCircuitSimulatorDlg::OnEnChangeEdit1)
 	//ON_EN_CHANGE(IDC_EDIT4, &CCircuitSimulatorDlg::OnEnChangeEdit4)
 	ON_STN_CLICKED(IDC_STATIC_DESC, &CCircuitSimulatorDlg::OnStnClickedStaticDesc)
-	ON_BN_CLICKED(IDC_BTN_RL_RUN, &CCircuitSimulatorDlg::OnBnClickedBtnRlRun)
-	ON_BN_CLICKED(IDC_BTN_RC_RUN, &CCircuitSimulatorDlg::OnBnClickedBtnRcRun)
 	ON_EN_CHANGE(IDC_EDIT_RC_R, &CCircuitSimulatorDlg::OnEnChangeEditRcR)
 	ON_EN_CHANGE(IDC_EDIT_RC_C, &CCircuitSimulatorDlg::OnEnChangeEditRcC)
 	ON_EN_CHANGE(IDC_EDIT_RC_V, &CCircuitSimulatorDlg::OnEnChangeEditRcV)
@@ -42,10 +33,13 @@ BEGIN_MESSAGE_MAP(CCircuitSimulatorDlg, CDialogEx)
 	ON_EN_CHANGE(IDC_EDIT_RL_L, &CCircuitSimulatorDlg::OnEnChangeEditRlL)
 	ON_EN_CHANGE(IDC_EDIT_RL_V, &CCircuitSimulatorDlg::OnEnChangeEditRlV)
 	
-	ON_BN_CLICKED(IDC_BTN_RC_GRAGH_RL, &CCircuitSimulatorDlg::OnBnClickedBtnRcGraghRl)
-	ON_BN_CLICKED(IDC_BTN_GRAGH_RL, &CCircuitSimulatorDlg::OnBnClickedBtnGraghRl)
 	ON_BN_CLICKED(IDC_BTN_GRAPH_RC, &CCircuitSimulatorDlg::OnBnClickedBtnGraphRc)
-
+	ON_BN_CLICKED(IDC_BTN_GRAPH_RL, &CCircuitSimulatorDlg::OnBnClickedBtnGraphRl)
+	ON_BN_CLICKED(IDC_GROUP_SELECT, &CCircuitSimulatorDlg::OnBnClickedGroupSelect)
+	ON_BN_CLICKED(IDC_GROUP_RL, &CCircuitSimulatorDlg::OnBnClickedGroupRl)
+	ON_BN_CLICKED(IDC_GROUP_RC, &CCircuitSimulatorDlg::OnBnClickedGroupRc)
+	ON_BN_CLICKED(IDC_BTN_RL, &CCircuitSimulatorDlg::OnBnClickedBtnRl)
+	ON_BN_CLICKED(IDC_BTN_RC, &CCircuitSimulatorDlg::OnBnClickedBtnRc)
 END_MESSAGE_MAP()
 
 
@@ -75,36 +69,6 @@ void CCircuitSimulatorDlg::OnStnClickedStaticDesc()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
-
-
-void CCircuitSimulatorDlg::OnBnClickedBtnRlRun()
-{
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-}
-
-
-void CCircuitSimulatorDlg::OnBnClickedBtnRcRun()
-{
-	CString strR, strC, strVin;
-
-	GetDlgItemText(IDC_EDIT_RC_R, strR);
-	GetDlgItemText(IDC_EDIT_RC_C, strC);
-	GetDlgItemText(IDC_EDIT_RC_V, strVin);
-
-	double R = _ttof(strR);
-	double C = _ttof(strC);
-	double Vin = _ttof(strVin);
-
-	if (R <= 0 || C <= 0 || Vin <= 0) {
-		AfxMessageBox(_T("R, C, Vin 값을 모두 양수로 입력해주세요."));
-		return;
-	}
-
-	m_rcCircuit.simulate(R, C, Vin);
-	AfxMessageBox(_T("RC 시뮬레이션이 완료되었습니다."));
-}
-}
-
 
 void CCircuitSimulatorDlg::OnEnChangeEditRlR()
 {
@@ -182,14 +146,86 @@ void CCircuitSimulatorDlg::OnEnChangeEditRcV()
 	// TODO:  여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
 
+void CCircuitSimulatorDlg::OnBnClickedBtnGraphRl()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CString strR, strL, strVin;
 
-void CCircuitSimulatorDlg::OnBnClickedBtnRcGraghRl()
+	GetDlgItemText(IDC_EDIT_RL_R, strR);
+	GetDlgItemText(IDC_EDIT_RL_L, strL);
+	GetDlgItemText(IDC_EDIT_RL_V, strVin);
+
+	double R = _ttof(strR);
+	double L = _ttof(strL);
+	double Vin = _ttof(strVin);
+
+	if (R <= 0 || L <= 0 || Vin <= 0) {
+		AfxMessageBox(_T("R, L, Vin 값을 모두 양수로 입력해주세요."));
+		return;
+	}
+
+	m_rlCircuit.simulate(R, L, Vin);
+
+	CGraphDlg dlg;
+	dlg.SetData(m_rlCircuit.getTimeArray(), m_rlCircuit.getCurrentArray(), _T("RL 회로 결과"));
+	dlg.DoModal();
+}
+
+
+void CCircuitSimulatorDlg::OnBnClickedBtnGraphRc()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CString strR, strC, strVin;
+	GetDlgItemText(IDC_EDIT_RC_R, strR);
+	GetDlgItemText(IDC_EDIT_RC_C, strC);
+	GetDlgItemText(IDC_EDIT_RC_V, strVin);
+
+	double R = _ttof(strR);
+	double C = _ttof(strC);
+	double Vin = _ttof(strVin);
+
+	if (R <= 0 || C <= 0 || Vin <= 0) {
+		AfxMessageBox(_T("R, C, Vin 값을 모두 양수로 입력해주세요."));
+		return;
+	}
+
+	m_rcCircuit.simulate(R, C, Vin);  // 객체명 정확히
+	CGraphDlg dlg;
+	dlg.SetData(m_rcCircuit.getTimeArray(), m_rcCircuit.getCurrentArray(), _T("RC 회로 결과"));
+	dlg.DoModal();
+}
+
+
+void CCircuitSimulatorDlg::OnBnClickedGroupSelect()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
 
 
-void CCircuitSimulatorDlg::OnBnClickedBtnGraghRl()
+void CCircuitSimulatorDlg::OnBnClickedGroupRl()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+}
+
+
+void CCircuitSimulatorDlg::OnBnClickedGroupRc()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+}
+
+BOOL CCircuitSimulatorDlg::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+
+	// 회로 모드에 따라 초기화할 동작 정의 (옵션)
+	if (m_modeSet) {
+		if (m_isRLMode) {
+			SetWindowTextW(_T("RL 회로 시뮬레이터"));
+		}
+		else {
+			SetWindowTextW(_T("RC 회로 시뮬레이터"));
+		}
+	}
+
+	return TRUE;
 }

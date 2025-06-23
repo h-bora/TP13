@@ -15,6 +15,7 @@ public:
 
 #ifdef AFX_DESIGN_TIME
     enum { IDD = IDD_GRAPH_DIALOG };
+ 
 #endif
 
 protected:

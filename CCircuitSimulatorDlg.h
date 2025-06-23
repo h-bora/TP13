@@ -21,14 +21,12 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
-
+	virtual BOOL OnInitDialog();
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnEnChangeEdit1();
 	afx_msg void OnEnChangeEdit4();
 	afx_msg void OnStnClickedStaticDesc();
-	afx_msg void OnBnClickedBtnRlRun();
-	afx_msg void OnBnClickedBtnRcRun();
 	afx_msg void OnEnChangeEditRlR();
 	afx_msg void OnEnChangeEditRcR();
 	afx_msg void OnEnChangeEditRcC();
@@ -36,11 +34,18 @@ public:
 	afx_msg void OnEnChangeEditRlL();
 	afx_msg void OnEnChangeEditRlV();
 	afx_msg void OnEnChangeEditRcV();
-	afx_msg void OnBnClickedBtnRcGraghRl();
-	afx_msg void OnBnClickedBtnGraghRl();
 	afx_msg void OnBnClickedBtnGraphRc();
-
+	afx_msg void OnBnClickedBtnGraphRl();
+	afx_msg void OnBnClickedBtnRl();
+	afx_msg void OnBnClickedBtnRc();
+	void SetMode(bool isRL);  // RL: true, RC: false
 private:
 	RCcircuit m_rcCircuit;
 	RLcircuit m_rlCircuit;
+	bool m_isRLMode;
+	bool m_modeSet = false;
+public:
+	afx_msg void OnBnClickedGroupSelect();
+	afx_msg void OnBnClickedGroupRl();
+	afx_msg void OnBnClickedGroupRc();
 };

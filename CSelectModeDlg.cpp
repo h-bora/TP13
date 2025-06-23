@@ -8,6 +8,7 @@
 #include "CGraphDlg.h"
 #include "RLcircuit.h"
 #include "RCcircuit.h"
+#include "CCircuitSimulatorDlg.h"
 
 // CSelectModeDlg 대화 상자
 
@@ -27,14 +28,14 @@ void CSelectModeDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 
 	// RC
-	DDX_Control(pDX, IDC_EDIT_RC_R, m_editRcR);
-	DDX_Control(pDX, IDC_EDIT_RC_C, m_editRcC);
-	DDX_Control(pDX, IDC_EDIT_RC_V, m_editRcV);
+	//DDX_Control(pDX, IDC_EDIT_RC_R, m_editRcR);
+	//DDX_Control(pDX, IDC_EDIT_RC_C, m_editRcC);
+	//DDX_Control(pDX, IDC_EDIT_RC_V, m_editRcV);
 
 	// RL
-	DDX_Control(pDX, IDC_EDIT_RL_R, m_editRlR);
-	DDX_Control(pDX, IDC_EDIT_RL_L, m_editRlL);
-	DDX_Control(pDX, IDC_EDIT_RL_V, m_editRlV);
+	//DDX_Control(pDX, IDC_EDIT_RL_R, m_editRlR);
+	//DDX_Control(pDX, IDC_EDIT_RL_L, m_editRlL);
+	//DDX_Control(pDX, IDC_EDIT_RL_V, m_editRlV);
 }
 
 BEGIN_MESSAGE_MAP(CSelectModeDlg, CDialogEx)
@@ -53,49 +54,30 @@ void CSelectModeDlg::OnBnClickedBtnImageprocess()
 // RC 회로 시뮬레이션 및 그래프 출력
 void CSelectModeDlg::OnBnClickedBtnGraphRC()
 {
-	CString strR, strC, strV;
-	m_editRcR.GetWindowTextW(strR);
-	m_editRcC.GetWindowTextW(strC);
-	m_editRcV.GetWindowTextW(strV);
-
-	double R = _ttof(strR);
-	double C = _ttof(strC);
-	double V = _ttof(strV);
-
-	if (R <= 0 || C <= 0 || V <= 0) {
-		AfxMessageBox(_T("RC 회로 입력값을 확인해주세요."));
-		return;
-	}
-
-	RCcircuit circuit;
-	circuit.simulate(R, C, V);
-
-	CGraphDlg dlg;
-	dlg.SetData(circuit.getTimeArray(), circuit.getCurrentArray(), _T("RC 회로 전류"));
-	dlg.DoModal();
+	CCircuitSimulatorDlg simdlg;
+	simdlg.SetMode(false); // RC
+	simdlg.DoModal();
 }
 
 // RL 회로 시뮬레이션 및 그래프 출력
 void CSelectModeDlg::OnBnClickedBtnGraphRL()
 {
-	CString strR, strL, strV;
-	m_editRlR.GetWindowTextW(strR);
-	m_editRlL.GetWindowTextW(strL);
-	m_editRlV.GetWindowTextW(strV);
+	CCircuitSimulatorDlg simdlg;
+	simdlg.SetMode(true); // RL
+	simdlg.DoModal();
+	
+}
 
-	double R = _ttof(strR);
-	double L = _ttof(strL);
-	double V = _ttof(strV);
+void CSelectModeDlg::OnBnClickedBtnImage()
+{
+	// 이미지 처리 버튼 클릭 시 동작
+	m_isCircuitMode = false;
+	EndDialog(IDOK);
+}
 
-	if (R <= 0 || L <= 0 || V <= 0) {
-		AfxMessageBox(_T("RL 회로 입력값을 확인해주세요."));
-		return;
-	}
-
-	RLcircuit circuit;
-	circuit.simulate(R, L, V);
-
-	CGraphDlg dlg;
-	dlg.SetData(circuit.getTimeArray(), circuit.getVoltageArray(), _T("RL 회로 전압"));
-	dlg.DoModal();
+void CSelectModeDlg::OnBnClickedBtnCircuit()
+{
+	// 회로 시뮬레이터 버튼 클릭 시 동작
+	m_isCircuitMode = true;
+	EndDialog(IDOK);
 }
