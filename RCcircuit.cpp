@@ -4,7 +4,7 @@
 #include <cmath>
 
 RCcircuit::RCcircuit()
-    : R(0), C(0), Vin(0), dt(0.01), steps(100)
+    : R(0), C(0), Vin(0), dt(0.005), steps(1000)
 {
 }
 

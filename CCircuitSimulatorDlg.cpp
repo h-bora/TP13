@@ -7,6 +7,8 @@
 #include "RCcircuit.h"
 #include "RLcircuit.h"
 #include "CCircuitSimulatorDlg.h"
+#include <string>
+#include <atlconv.h>
 
 
 // CCircuitSimulatorDlg 대화 상자
@@ -150,19 +152,32 @@ void CCircuitSimulatorDlg::OnBnClickedBtnGraphRl()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CString strR, strL, strVin;
-
 	GetDlgItemText(IDC_EDIT_RL_R, strR);
 	GetDlgItemText(IDC_EDIT_RL_L, strL);
 	GetDlgItemText(IDC_EDIT_RL_V, strVin);
 
-	double R = _ttof(strR);
-	double L = _ttof(strL);
-	double Vin = _ttof(strVin);
+	USES_CONVERSION; // 🔺 CT2A 쓸 때 꼭 필요할 수 있음
+
+	double R, L, Vin;
+
+	try {
+		R = std::stod(std::string(CT2A(strR)));
+		L = std::stod(std::string(CT2A(strL)));
+		Vin = std::stod(std::string(CT2A(strVin)));
+	}
+	catch (const std::exception&) {
+		AfxMessageBox(_T("입력값이 숫자가 아닙니다. 예: 10, 1.2, 3.5e-2 같은 형식으로 입력해주세요."));
+		return;
+	}
 
 	if (R <= 0 || L <= 0 || Vin <= 0) {
 		AfxMessageBox(_T("R, L, Vin 값을 모두 양수로 입력해주세요."));
 		return;
 	}
+
+	CString msg;
+	msg.Format(_T("RL 시뮬레이션 실행:\nR=%.4f\nL=%.6f\nVin=%.3f"), R, L, Vin);
+	AfxMessageBox(msg);
 
 	m_rlCircuit.simulate(R, L, Vin);
 
@@ -180,16 +195,31 @@ void CCircuitSimulatorDlg::OnBnClickedBtnGraphRc()
 	GetDlgItemText(IDC_EDIT_RC_C, strC);
 	GetDlgItemText(IDC_EDIT_RC_V, strVin);
 
-	double R = _ttof(strR);
-	double C = _ttof(strC);
-	double Vin = _ttof(strVin);
+	USES_CONVERSION;
+
+	double R, C, Vin;
+
+	try {
+		R = std::stod(std::string(CT2A(strR)));
+		C = std::stod(std::string(CT2A(strC)));
+		Vin = std::stod(std::string(CT2A(strVin)));
+	}
+	catch (...) {
+		AfxMessageBox(_T("숫자가 올바르지 않습니다. 예: 10, 2.5, 3.0e-2 형식으로 입력해주세요."));
+		return;
+	}
 
 	if (R <= 0 || C <= 0 || Vin <= 0) {
 		AfxMessageBox(_T("R, C, Vin 값을 모두 양수로 입력해주세요."));
 		return;
 	}
 
-	m_rcCircuit.simulate(R, C, Vin);  // 객체명 정확히
+	CString msg;
+	msg.Format(_T("RC 시뮬레이션 실행:\nR=%.4f\nC=%.6f\nVin=%.3f"), R, C, Vin);
+	AfxMessageBox(msg);
+
+	m_rcCircuit.simulate(R, C, Vin);
+
 	CGraphDlg dlg;
 	dlg.SetData(m_rcCircuit.getTimeArray(), m_rcCircuit.getCurrentArray(), _T("RC 회로 결과"));
 	dlg.DoModal();

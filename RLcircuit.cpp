@@ -3,7 +3,7 @@
 #include <cmath>
 
 RLcircuit::RLcircuit()
-    : R(0), L(0), Vin(0), dt(0.01), steps(100)  // ← 초기화 리스트로 수정
+    : R(0), L(0), Vin(0), dt(0.01), steps(1000)  // ← 초기화 리스트로 수정
 {
 }
 
