@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "afxdialogex.h"
-
+#include "RCcircuit.h" 
+#include "RLcircuit.h"
+#include "CGraphDlg.h"
 
 // CCircuitSimulatorDlg 대화 상자
 
@@ -36,4 +38,9 @@ public:
 	afx_msg void OnEnChangeEditRcV();
 	afx_msg void OnBnClickedBtnRcGraghRl();
 	afx_msg void OnBnClickedBtnGraghRl();
+	afx_msg void OnBnClickedBtnGraphRc();
+
+private:
+	RCcircuit m_rcCircuit;
+	RLcircuit m_rlCircuit;
 };

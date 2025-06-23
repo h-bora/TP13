@@ -4,6 +4,8 @@
 #include "pch.h"
 #include "TP13.h"
 #include "afxdialogex.h"
+#include "RCcircuit.h"
+#include "RLcircuit.h"
 #include "CCircuitSimulatorDlg.h"
 
 
@@ -42,6 +44,8 @@ BEGIN_MESSAGE_MAP(CCircuitSimulatorDlg, CDialogEx)
 	
 	ON_BN_CLICKED(IDC_BTN_RC_GRAGH_RL, &CCircuitSimulatorDlg::OnBnClickedBtnRcGraghRl)
 	ON_BN_CLICKED(IDC_BTN_GRAGH_RL, &CCircuitSimulatorDlg::OnBnClickedBtnGraghRl)
+	ON_BN_CLICKED(IDC_BTN_GRAPH_RC, &CCircuitSimulatorDlg::OnBnClickedBtnGraphRc)
+
 END_MESSAGE_MAP()
 
 
@@ -81,7 +85,24 @@ void CCircuitSimulatorDlg::OnBnClickedBtnRlRun()
 
 void CCircuitSimulatorDlg::OnBnClickedBtnRcRun()
 {
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CString strR, strC, strVin;
+
+	GetDlgItemText(IDC_EDIT_RC_R, strR);
+	GetDlgItemText(IDC_EDIT_RC_C, strC);
+	GetDlgItemText(IDC_EDIT_RC_V, strVin);
+
+	double R = _ttof(strR);
+	double C = _ttof(strC);
+	double Vin = _ttof(strVin);
+
+	if (R <= 0 || C <= 0 || Vin <= 0) {
+		AfxMessageBox(_T("R, C, Vin 값을 모두 양수로 입력해주세요."));
+		return;
+	}
+
+	m_rcCircuit.simulate(R, C, Vin);
+	AfxMessageBox(_T("RC 시뮬레이션이 완료되었습니다."));
+}
 }
 
 
