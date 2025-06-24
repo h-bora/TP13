@@ -27,15 +27,6 @@ void CSelectModeDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 
-	// RC
-	//DDX_Control(pDX, IDC_EDIT_RC_R, m_editRcR);
-	//DDX_Control(pDX, IDC_EDIT_RC_C, m_editRcC);
-	//DDX_Control(pDX, IDC_EDIT_RC_V, m_editRcV);
-
-	// RL
-	//DDX_Control(pDX, IDC_EDIT_RL_R, m_editRlR);
-	//DDX_Control(pDX, IDC_EDIT_RL_L, m_editRlL);
-	//DDX_Control(pDX, IDC_EDIT_RL_V, m_editRlV);
 }
 
 BEGIN_MESSAGE_MAP(CSelectModeDlg, CDialogEx)
@@ -74,7 +65,7 @@ void CSelectModeDlg::OnBnClickedBtnImage()
 {
 	CImageProcessDlg dlg;
 	dlg.DoModal();
-	EndDialog(IDCANCEL);
+	EndDialog(IDCANCEL);  // 종료
 }
 
 void CSelectModeDlg::OnBnClickedBtnCircuit()
@@ -83,3 +74,4 @@ void CSelectModeDlg::OnBnClickedBtnCircuit()
 	dlg.DoModal();
 	EndDialog(IDCANCEL);
 }
+

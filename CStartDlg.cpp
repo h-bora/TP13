@@ -29,8 +29,10 @@ END_MESSAGE_MAP()
 
 void CStartDlg::OnBnClickedBtnStart()
 {
+    ShowWindow(SW_HIDE);
+
     CSelectModeDlg dlg;
     dlg.DoModal();
-    EndDialog(IDOK);
-}
 
+    EndDialog(IDCANCEL);
+}

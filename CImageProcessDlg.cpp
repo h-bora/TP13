@@ -4,6 +4,7 @@
 #include "CImageProcessDlg.h"
 #include "afxdialogex.h"
 #include "imageYUEE.h"
+#include "CSelectModeDlg.h"
 
 IMPLEMENT_DYNAMIC(CImageProcessDlg, CDialogEx)
 
@@ -44,6 +45,7 @@ BEGIN_MESSAGE_MAP(CImageProcessDlg, CDialogEx)
     ON_BN_CLICKED(IDC_CHECK_BRIGHTNESS, &CImageProcessDlg::OnCheckBrightness)
     ON_BN_CLICKED(IDC_CHECK_SHARPEN, &CImageProcessDlg::OnCheckSharpen)
     ON_BN_CLICKED(IDC_BTN_LOADIMAGE, &CImageProcessDlg::OnBnClickedBtnLoadImage)
+    ON_WM_CLOSE()
 END_MESSAGE_MAP()
 
 BOOL CImageProcessDlg::OnInitDialog()
@@ -140,31 +142,52 @@ void CImageProcessDlg::OnBnClickedBtnSave()
 
 void CImageProcessDlg::OnBnClickedBtnReset()
 {
+    // 1. 필터 체크박스 전부 해제
     m_checkInvert.SetCheck(BST_UNCHECKED);
     m_checkBinarize.SetCheck(BST_UNCHECKED);
     m_checkBrightness.SetCheck(BST_UNCHECKED);
     m_checkSharpen.SetCheck(BST_UNCHECKED);
+
+    // 2. 결과 이미지 영역 흰색으로 초기화
+    if (m_ctrlResultImage.GetSafeHwnd())
+    {
+        CDC* pDC = m_ctrlResultImage.GetDC();
+        CRect rect;
+        m_ctrlResultImage.GetClientRect(&rect);
+        pDC->FillSolidRect(&rect, RGB(255, 255, 255));
+        m_ctrlResultImage.ReleaseDC(pDC);
+    }
+
+    // 3. 적용 필터 텍스트 초기화
     m_staticFilterInfo.SetWindowText(_T("적용 필터: 없음"));
+
+    // 4. (선택) 처리된 이미지 제거
+    if (m_imgProcessed)
+    {
+        delete m_imgProcessed;
+        m_imgProcessed = nullptr;
+    }
 }
 
 void CImageProcessDlg::OnBnClickedBtnBack()
 {
-    EndDialog(IDCANCEL);
+    // 현재 창 숨기기
+    ShowWindow(SW_HIDE);
+
+    // 부모 창이 존재하면 다시 보이게 하기
+    CWnd* pParent = GetParent();
+    if (pParent)
+        pParent->ShowWindow(SW_SHOW);
 }
 
 void CImageProcessDlg::OnBnClickedBtnExit()
 {
-    OnOK();
+   // OnOK();
 }
 
 void CImageProcessDlg::OnStnClickedPicResult()
 {
     // 필요시 코드 작성
-}
-
-void CImageProcessDlg::OnBnClickedBtnCancel()
-{
-    OnOK();
 }
 
 void CImageProcessDlg::OnCheckInvert()
@@ -241,3 +264,9 @@ void CImageProcessDlg::OnBnClickedBtnLoadImage()
         m_staticFilterInfo.SetWindowText(_T("적용 필터: 없음"));
     }
 } 
+
+void CImageProcessDlg::OnBnClickedBtnCancel()
+{
+    EndDialog(IDCANCEL);  // 다이얼로그 종료
+
+}

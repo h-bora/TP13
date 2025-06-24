@@ -116,8 +116,15 @@ HCURSOR CTP13Dlg::OnQueryDragIcon()
 }
 void CTP13Dlg::OnBnClickedStartButton()
 {
-	CSelectModeDlg dlg;
+	//CSelectModeDlg dlg;
+	//dlg.DoModal();
+
+	ShowWindow(SW_HIDE);
+
+	CImageProcessDlg dlg(this);
 	dlg.DoModal();
+
+	ShowWindow(SW_SHOW); // 되돌아올 경우 다시 보여줌
 }
 
 CCircuitSimulatorDlg::CCircuitSimulatorDlg(CWnd* pParent)
