@@ -186,7 +186,6 @@
     <ClInclude Include="CCircuitSimulatorDlg.h" />
     <ClInclude Include="CGraphDlg.h" />
     <ClInclude Include="CImageProcessDlg.h" />
-    <ClInclude Include="CResultImageDlg.h" />
     <ClInclude Include="CSelectModeDlg.h" />
     <ClInclude Include="CStartDlg.h" />
     <ClInclude Include="framework.h" />
@@ -203,7 +202,6 @@
     <ClCompile Include="CCircuitSimulatorDlg.cpp" />
     <ClCompile Include="CGraphDlg.cpp" />
     <ClCompile Include="CImageProcessDlg.cpp" />
-    <ClCompile Include="CResultImageDlg.cpp" />
     <ClCompile Include="CSelectModeDlg.cpp" />
     <ClCompile Include="CStartDlg.cpp" />
     <ClCompile Include="imageYUEE.cpp" />

@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "afxdialogex.h"
 #include "imageYUEE.h"  
-#include "CResultImageDlg.h"
+#include "CImageProcessDlg.h"
 
 // CResultImageDlg 대화 상자
 
@@ -10,10 +10,10 @@ class CResultImageDlg : public CDialogEx
 	DECLARE_DYNAMIC(CResultImageDlg)
 
 public:
-	CResultImageDlg(CWnd* pParent = nullptr);   // 표준 생성자입니다.
+	CImagoprocessDlg(CWnd* pParent = nullptr);   // 표준 생성자입니다.
 	virtual ~CResultImageDlg();
 
-	enum { IDD = IDD_RESULT_IMAGE };
+	enum { IDD = IDD_IMAGE_PROCESS};
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원

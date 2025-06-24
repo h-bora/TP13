@@ -13,13 +13,21 @@
 
 using namespace std;
 
+
+imageYUEE::imageYUEE() {
+    width = 0;
+    height = 0;
+}
+
 imageYUEE::imageYUEE(const CString& filename) {
     loadPGM(filename);
 }
-imageYUEE::imageYUEE(const imageYUEE& other) {
+
+imageYUEE::imageYUEE(const imageYUEE& other)
+{
     width = other.width;
     height = other.height;
-    pixels = other.pixels;    // 복사 생성자  
+    pixels = other.pixels;
 }
 
 void imageYUEE::imageProc(int mode) {
@@ -110,12 +118,13 @@ void imageYUEE::sharpen() {
     }
 }
 
-
-
 void imageYUEE::drawImage(HWND hwnd) {
+    if (pixels.empty() || width == 0 || height == 0) return;
+
     CClientDC dc(CWnd::FromHandle(hwnd));
     CRect rect;
     ::GetClientRect(hwnd, &rect);
+
     CBitmap bmp;
     bmp.CreateCompatibleBitmap(&dc, rect.Width(), rect.Height());
 
@@ -123,15 +132,36 @@ void imageYUEE::drawImage(HWND hwnd) {
     memDC.CreateCompatibleDC(&dc);
     CBitmap* pOldBmp = memDC.SelectObject(&bmp);
 
-    memDC.FillSolidRect(&rect, RGB(255, 255, 255));
+    memDC.FillSolidRect(&rect, RGB(255, 255, 255)); // 배경 흰색
 
-    for (int y = 0; y < height && y < rect.Height(); ++y) {
-        for (int x = 0; x < width && x < rect.Width(); ++x) {
+    // 확대 비율 계산
+    double scaleX = (double)rect.Width() / width;
+    double scaleY = (double)rect.Height() / height;
+
+    for (int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
             unsigned char px = pixels[y][x];
-            memDC.SetPixel(x, y, RGB(px, px, px));
+            COLORREF color = RGB(px, px, px);
+
+            // 확대 범위 계산 (픽셀 블록으로 출력)
+            int drawXStart = (int)(x * scaleX);
+            int drawXEnd = (int)((x + 1) * scaleX);
+            int drawYStart = (int)(y * scaleY);
+            int drawYEnd = (int)((y + 1) * scaleY);
+
+            // 클리핑 방지
+            drawXEnd = min(drawXEnd, rect.Width());
+            drawYEnd = min(drawYEnd, rect.Height());
+
+            for (int yy = drawYStart; yy < drawYEnd; ++yy) {
+                for (int xx = drawXStart; xx < drawXEnd; ++xx) {
+                    memDC.SetPixel(xx, yy, color);
+                }
+            }
         }
     }
 
+    // 메모리 DC를 실제 DC에 출력
     dc.BitBlt(0, 0, rect.Width(), rect.Height(), &memDC, 0, 0, SRCCOPY);
     memDC.SelectObject(pOldBmp);
 }
