@@ -1,7 +1,9 @@
-﻿#include "pch.h"
+﻿#include "CResultImageDlg.h"
+#include "pch.h"
 #include "framework.h"
 #include "TP13.h"
 #include "CImageProcessDlg.h"
+
 #include "afxdialogex.h"
 #include "imageYUEE.h"
 
@@ -36,7 +38,9 @@ BEGIN_MESSAGE_MAP(CImageProcessDlg, CDialogEx)
     ON_BN_CLICKED(IDC_BTN_RESET, &CImageProcessDlg::OnBnClickedBtnReset)
     ON_BN_CLICKED(IDC_BTN_BACK, &CImageProcessDlg::OnBnClickedBtnBack)
     ON_BN_CLICKED(IDC_BTN_EXIT, &CImageProcessDlg::OnBnClickedBtnExit)
+  
     ON_STN_CLICKED(IDC_PIC_RESULT, &CImageProcessDlg::OnStnClickedPicResult)
+    
 END_MESSAGE_MAP()
 
 BOOL CImageProcessDlg::OnInitDialog()
@@ -97,6 +101,10 @@ void CImageProcessDlg::OnBnClickedBtnApply()
     }
 
     m_staticFilterInfo.SetWindowText(_T("적용 필터: ") + filterName);
+    
+    CResultImageDlg dlg;
+    dlg.SetImage(m_imgProcessed);    // m_image는 imageYUEE 클래스 인스턴스 (보통 원본 or 결과)
+    dlg.DoModal();
 }
 
 void CImageProcessDlg::OnBnClickedBtnSave()

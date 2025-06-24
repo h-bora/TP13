@@ -1,5 +1,5 @@
 ﻿#pragma once
-
+#include "CResultImageDlg.h"
 #include "afxdialogex.h"
 #include "imageYUEE.h"
 
